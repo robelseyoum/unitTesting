@@ -1,5 +1,7 @@
 package com.robelseyoum3.robaunittesting.models;
 
+import com.robelseyoum3.robaunittesting.util.TestUtil;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +9,6 @@ public class NoteTest {
 
     public static final String TIMESTAMP_1 = "05-2020";
     public static final String TIMESTAMP_2 = "06-2020";
-
     /*
     compare two equal Notes
      */
