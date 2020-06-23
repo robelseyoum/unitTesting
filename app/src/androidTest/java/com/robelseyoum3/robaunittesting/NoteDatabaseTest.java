@@ -11,17 +11,17 @@ import org.junit.Before;
 
 public abstract class NoteDatabaseTest {
 
-    //system under test
+    // system under test
     private NoteDatabase noteDatabase;
+
 
     public NoteDao getNoteDao(){
         return noteDatabase.getNoteDao();
     }
 
-
     @Before
     public void init(){
-        noteDatabase  = Room.inMemoryDatabaseBuilder(
+        noteDatabase = Room.inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(),
                 NoteDatabase.class
         ).build();
@@ -31,5 +31,4 @@ public abstract class NoteDatabaseTest {
     public void finish(){
         noteDatabase.close();
     }
-
 }

@@ -1,6 +1,6 @@
 package com.robelseyoum3.robaunittesting.di;
 
-import com.robelseyoum3.robaunittesting.NotesListActivity;
+import com.robelseyoum3.robaunittesting.ui.notelist.NotesListActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

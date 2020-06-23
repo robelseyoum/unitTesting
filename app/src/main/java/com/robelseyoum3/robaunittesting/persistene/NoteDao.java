@@ -19,10 +19,9 @@ public interface NoteDao {
     @Query("SELECT * FROM notes")
     LiveData<List<Note>> getNotes();
 
-    @Update
-    Single<Integer> updateNote(Note note) throws  Exception;
-
     @Delete
     Single<Integer> deleteNote(Note note) throws Exception;
 
+    @Update
+    Single<Integer> updateNote(Note note) throws  Exception;
 }
