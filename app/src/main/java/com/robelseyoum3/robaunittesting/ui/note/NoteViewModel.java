@@ -80,17 +80,60 @@ public class NoteViewModel extends ViewModel {
         return note;
     }
 
+    /**
+     * SAVENOTE
+     */
     public LiveData<Resource<Integer>> saveNote() throws Exception{
+
         if(!shouldAllowSave()){
             throw new Exception(NO_CONTENT_ERROR);
         }
+
         cancelPendingTransaction();
 
+        return new NoteInsertUpdateHelper<Integer>(){
 
-        return null;
+            @Override
+            public void setNoteId(int noteId) {
+                isNewNote = false;
+                Note currentNote = note.getValue();
+                currentNote.setId(noteId);
+                note.setValue(currentNote);
+            }
+
+            @Override
+            public LiveData<Resource<Integer>> getAction() throws Exception {
+                if(isNewNote){
+                    return insertNote();
+                } else  {
+                    return updateNote();
+                }
+            }
+
+            @Override
+            public String defineAction() {
+                if(isNewNote){
+                    return ACTION_INSERT;
+                } else {
+                    return ACTION_UPDATE;
+                }
+            }
+
+            @Override
+            public void onTransactionComplete() {
+                updateSubscription = null;
+                insertSubscription = null;
+            }
+
+        }.getAsLiveData();
     }
-    private boolean shouldAllowSave(){
+
+    private boolean shouldAllowSave() throws Exception{
+        try {
         return  removeWhiteSpace(note.getValue().getContent()).length() > 0;
+        }catch (NullPointerException exception){
+            throw new Exception(NO_CONTENT_ERROR);
+        }
     }
 
     private void cancelPendingTransaction(){
